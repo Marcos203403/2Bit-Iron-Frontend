@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BitIron Admin</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- SweetAlert2 (Para reglas de negocio) -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar (Navegación) -->
+        <nav class="sidebar" id="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-dumbbell"></i>
+                <h2>BitIron</h2>
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-view="productos">
+                    <i class="fa-solid fa-box"></i> <span>Productos</span>
+                </li>
+                <li data-view="categorias">
+                    <i class="fa-solid fa-tags"></i> <span>Categorías</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <!-- Mobile toggle -->
+                <button class="mobile-toggle" id="mobile-toggle">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <h1 id="page-title">Gestión de Productos</h1>
+                <button id="btn-add" class="btn-primary">
+                    <i class="fa-solid fa-plus"></i> <span>Añadir</span>
+                </button>
+            </header>
+            
+            <div class="content-area">
+                <!-- Vista: Productos -->
+                <div id="view-productos" class="view active">
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Precio</th>
+                                    <th>Stock</th>
+                                    <th>Categoría</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productos-tbody">
+                                <!-- Carga dinámica -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Vista: Categorías -->
+                <div id="view-categorias" class="view">
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="categorias-tbody">
+                                <!-- Carga dinámica -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Base para Formularios -->
+    <div id="form-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Formulario</h2>
+                <button class="close-btn" id="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="crud-form">
+                    <input type="hidden" id="form-id">
+                    <input type="hidden" id="form-type">
+                    <div id="dynamic-form-fields">
+                        <!-- Carga dinámica de campos según entidad -->
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancel-modal">Cancelar</button>
+                        <button type="submit" class="btn-primary" id="btn-save">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
