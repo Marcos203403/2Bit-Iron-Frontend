@@ -67,9 +67,11 @@ function switchView(view) {
 async function loadProductos() {
     try {
         const res = await fetch(`${API_URL}/productos`);
-        const data = await res.json();
+        const json = await res.json();
+        const data = json.data || json; // Extraemos el array 'data'
         renderProductos(data);
     } catch (error) {
+        console.error(error);
         showError('No se pudo conectar con el backend. ¿Está encendido?');
     }
 }
@@ -101,10 +103,12 @@ function renderProductos(productos) {
 async function loadCategorias() {
     try {
         const res = await fetch(`${API_URL}/categorias`);
-        const data = await res.json();
+        const json = await res.json();
+        const data = json.data || json; // Extraemos el array 'data'
         categoriasList = data; // Guardamos estado global
         renderCategorias(data);
     } catch (error) {
+        console.error(error);
         showError('No se pudo conectar con el backend.');
     }
 }
@@ -230,12 +234,12 @@ async function handleFormSubmit(e) {
 
         const result = await res.json();
 
-        // REGLA DE NEGOCIO 1: Auditoría Autoría (Detectar palabra TEST/PRUEBA) -> Backend devuelve 422
+        // Capturar errores de validación desde el servidor
         if (res.status === 422 || res.status === 400) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Validación de Negocio',
-                text: result.message || 'Error de validación (Recuerda que no puedes usar "TEST").',
+                text: result.message || 'Error de validación.',
                 confirmButtonColor: '#4F46E5'
             });
             return;
@@ -279,7 +283,7 @@ async function deleteEntity(type, id) {
             const res = await fetch(`${API_URL}/${endpoint}/${id}`, { method: 'DELETE' });
             const result = await res.json();
             
-            // REGLA DE NEGOCIO 2: Bloqueo de borrado de categoría si tiene productos (El backend debería devolver 400 o 409)
+            // Validar restricción de borrado si la categoría tiene productos
             if (res.status === 400 || res.status === 409) {
                 Swal.fire({
                     icon: 'error',
