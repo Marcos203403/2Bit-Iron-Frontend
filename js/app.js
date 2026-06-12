@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'http://54.147.187.6:3000/api';
 
 // --- Estado de la UI ---
 let currentView = 'productos';
